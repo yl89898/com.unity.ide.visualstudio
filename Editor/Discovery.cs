@@ -17,8 +17,10 @@ namespace Microsoft.Unity.VisualStudio.Editor
 			foreach (var installation in VisualStudioForWindowsInstallation.GetVisualStudioInstallations())
 				yield return installation;
 #endif
-
 			foreach (var installation in VisualStudioCodeInstallation.GetVisualStudioInstallations())
+				yield return installation;
+
+			foreach (var installation in VisualStudioCodiumInstallation.GetVisualStudioInstallations())
 				yield return installation;
 		}
 
@@ -31,6 +33,9 @@ namespace Microsoft.Unity.VisualStudio.Editor
 					return true;
 #endif
 				if (VisualStudioCodeInstallation.TryDiscoverInstallation(editorPath, out installation))
+					return true;
+
+				if (VisualStudioCodiumInstallation.TryDiscoverInstallation(editorPath, out installation))
 					return true;
 			}
 			catch (IOException)
@@ -47,6 +52,7 @@ namespace Microsoft.Unity.VisualStudio.Editor
 			VisualStudioForWindowsInstallation.Initialize();
 #endif
 			VisualStudioCodeInstallation.Initialize();
+			VisualStudioCodiumInstallation.Initialize();
 		}
 	}
 }
